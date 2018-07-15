@@ -14,7 +14,7 @@ export class TabComponent implements OnInit,Tab {
   @Input() selected;
   title:string;
 
-  constructor(private tabsComponent: TabsComponent) {}
+  constructor() {}
 
   ngOnInit() {
     this.title = this.data.title;

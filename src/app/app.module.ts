@@ -7,13 +7,13 @@ import { HelloComponent } from './hello.component';
 import { TestComponent } from './test.component';
 
 import {TabsModule} from "./tabs/tabs.module";
-import {SimpleTitleComponent} from "./tabs/content/simple-title/simple-title.component";
+import {DummyContent} from "./tabs/content/dummy-content/dummy-content.component";
 
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, TabsModule ],
   declarations: [ AppComponent, HelloComponent, TestComponent ],
-  entryComponents: [HelloComponent,SimpleTitleComponent],
+  entryComponents: [HelloComponent,DummyContent],
   bootstrap:    [ AppComponent ],
   schemas: [ NO_ERRORS_SCHEMA ]
 })

@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, Component, Input, OnInit} from '@angular/core';
+
+@Component({
+  selector: 'a-tab-content',
+  template: `Hello, I'm default!
+  `,
+})
+export class DefaultTabContent {}
+
 
 @Component({
   selector: 'tab-content',
-  templateUrl: './tab-content.component.html',
-  styleUrls: ['./tab-content.component.css']
+  template: `
+    <ng-container *ngComponentOutlet="tabComponent"></ng-container>`,
 })
-export class TabContentComponent implements OnInit {
 
+export class TabContentComponent implements OnInit {
+  @Input() tab;
+  tabComponent = DefaultTabContent;
   constructor() { }
 
   ngOnInit() {
+    this.tabComponent = this.tab.component;
   }
 
 }
