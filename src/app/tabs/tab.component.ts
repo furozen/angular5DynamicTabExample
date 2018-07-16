@@ -18,5 +18,6 @@ export class TabComponent implements OnInit,Tab {
 
   ngOnInit() {
     this.title = this.data.title;
+    this.selected = this.data.selected;
   }
 }

@@ -13,7 +13,7 @@ import {DummyContent} from "./tabs/content/dummy-content/dummy-content.component
 @NgModule({
   imports:      [ BrowserModule, FormsModule, TabsModule ],
   declarations: [ AppComponent, HelloComponent, TestComponent ],
-  entryComponents: [HelloComponent,DummyContent],
+  entryComponents: [HelloComponent,DummyContent,TestComponent],
   bootstrap:    [ AppComponent ],
   schemas: [ NO_ERRORS_SCHEMA ]
 })
