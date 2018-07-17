@@ -1,4 +1,8 @@
 <div class='tabs__titles'>
-  <tab *ngFor="let data of tabs; let i = index" [data]="data" [selected]="i == activeTab"  (click)="selectTab(data)" >
-  </tab>
+  <tab *ngFor="let data of tabs" [data]="data"   (click)="selectTab(data)"></tab>
+</div>
+<div>
+<hr/>
+<ng-content select="tab-content"></ng-content>
+<hr/>
 </div>

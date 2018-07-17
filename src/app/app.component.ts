@@ -3,6 +3,7 @@ import {TabsComponent} from "./tabs/tabs.component";
 import {HelloComponent} from "./hello.component";
 import {DummyContent} from "./tabs/content/dummy-content/dummy-content.component";
 import {TestComponent} from "./test.component";
+import {Tab} from "./tabs/tab.interface";
 
 @Component({
   selector: 'my-app',
@@ -10,8 +11,7 @@ import {TestComponent} from "./test.component";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public tabs = [];
-  public index: number = 0;
+  public tabs:Tab[] = [];
   @ViewChild(HelloComponent) helloComponent;
   @ViewChild(DummyContent) simpleTitleComponent;
   @ViewChild('BigHeader') BigHeaderTemplate;
@@ -45,9 +45,9 @@ export class AppComponent {
     if(this.getSelectedIndex()!==undefined){
       selected = false;
     }
-    if (this.tabs.length % 2 === 0) {
+    if (this.tabs.length % 3 === 0) {
       this.tabs.push({title: 'Tab' + this.tabs.length, selected:selected});
-    } else if (this.tabs.length % 2 === 1) {
+    } else if (this.tabs.length % 3 === 1) {
       this.tabs.push({title: 'Tab' + this.tabs.length, component: DummyContent, selected:selected});
     } else {
       this.tabs.push({title: 'Tab' + this.tabs.length, component: TestComponent, titleTemplate: this.BigHeaderTemplate, selected:selected});

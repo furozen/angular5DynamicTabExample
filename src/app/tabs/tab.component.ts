@@ -8,16 +8,14 @@ import {Tab} from "./tab.interface";
   styleUrls: ['./tab.component.css']
 
 })
-export class TabComponent implements OnInit,Tab {
+export class TabComponent implements OnInit {
 
   @Input() data;
-  @Input() selected;
   title:string;
 
   constructor() {}
 
   ngOnInit() {
     this.title = this.data.title;
-    this.selected = this.data.selected;
   }
 }

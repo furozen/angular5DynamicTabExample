@@ -14,7 +14,7 @@ import {AfterContentInit, Component, Input, OnInit, TemplateRef} from '@angular/
     </ng-container>`,
 
 })
-export class TabTitleComponent implements OnInit, AfterContentInit{
+export class TabTitleComponent implements OnInit{
   titleTemplate: TemplateRef<any>;
   @Input() tab;
   ctx = {name:''};
@@ -26,7 +26,4 @@ export class TabTitleComponent implements OnInit, AfterContentInit{
     }
   }
 
- ngAfterContentInit(){
-
- }
 }

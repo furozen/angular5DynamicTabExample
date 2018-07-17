@@ -1,10 +1,9 @@
 import {
-  AfterContentInit, AfterViewInit, ChangeDetectorRef, Compiler,
+  AfterViewInit, ChangeDetectorRef, Compiler,
   Component, ComponentFactoryResolver,
-  ComponentRef, ContentChild,
-  Injector,
-  Input, OnChanges, OnDestroy,
-  OnInit,
+  ComponentRef, ElementRef, Injector,
+  Input,
+  OnDestroy,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -21,28 +20,17 @@ export class DefaultTabContent {
 
 @Component({
   selector: 'tab-content',
-  template: `
-    <ng-container #ngComponentOutlet  *ngComponentOutlet="tabComponent;injector: myInjector; 
-                                      content: myContent"></ng-container>
-    <div #target></div>
+  template: `    
+    <ng-container #target></ng-container>
   `,
 })
 
-export class TabContentComponent implements OnInit,AfterViewInit,OnChanges,OnDestroy {
+export class TabContentComponent implements AfterViewInit,OnDestroy {
   @Input() tab;
   @ViewChild('target', {read: ViewContainerRef}) target;
-  @ViewChild(DefaultTabContent, {read: ViewContainerRef}) ngComponentOutlet;
-  @ContentChild(DefaultTabContent, {read: ViewContainerRef}) ngComponentOutlet2;
+
+
   tabComponent = DefaultTabContent;
-  myInjector: Injector;
-
-  myContent;
-
-
-  ngOnInit() {
-
-
-  }
 
 
   cmpRef: ComponentRef<any>;
@@ -51,7 +39,9 @@ export class TabContentComponent implements OnInit,AfterViewInit,OnChanges,OnDes
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private _viewContainerRef: ViewContainerRef,
               private compiler: Compiler,
-              private cdRef: ChangeDetectorRef) {
+              private injector:Injector,
+              private cdRef: ChangeDetectorRef,
+              private elRef: ElementRef) {
   }
 
   updateComponent() {
@@ -59,31 +49,22 @@ export class TabContentComponent implements OnInit,AfterViewInit,OnChanges,OnDes
     if (this.cmpRef) {
       this.cmpRef.destroy();
     }
-
+    let node = this.elRef.nativeElement.parentElement.parentElement.parentElement.childNodes[1];
     let factory = this.componentFactoryResolver.resolveComponentFactory(this.tabComponent);
-    this.cmpRef = this.target.createComponent(factory)
-    // to access the created instance use
-     this.cmpRef.instance.tab = this.tab;
+    // node projecting is not working
+    this.cmpRef = this.target.createComponent(factory,0,this.injector, [[node]]);
+
+    this.cmpRef.instance.tab = this.tab;
     this.cdRef.detectChanges();
 
-
-
   }
 
-  ngOnChanges() {
-    this.updateComponent();
-  }
 
   ngAfterViewInit() {
-    this.isViewInitialized = true;
     if (this.tab.component) {
-      let factory = this.componentFactoryResolver.resolveComponentFactory(this.tab.component);
-      let cmpRef = this.target.createComponent(factory)
-      // to access the created instance use
-      cmpRef.instance.tab = this.tab;
-      this.cdRef.detectChanges();
       this.tabComponent = this.tab.component;
     }
+    this.isViewInitialized = true;
     this.updateComponent();
   }
 
