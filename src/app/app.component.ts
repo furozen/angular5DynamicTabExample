@@ -46,6 +46,8 @@ export class AppComponent {
       selected = false;
     }
     if (this.tabs.length % 2 === 0) {
+      this.tabs.push({title: 'Tab' + this.tabs.length, selected:selected});
+    } else if (this.tabs.length % 2 === 1) {
       this.tabs.push({title: 'Tab' + this.tabs.length, component: DummyContent, selected:selected});
     } else {
       this.tabs.push({title: 'Tab' + this.tabs.length, component: TestComponent, titleTemplate: this.BigHeaderTemplate, selected:selected});
